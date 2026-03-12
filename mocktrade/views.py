@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 from .models import MockTrading, Cosmetic, MarketRecord
 
 def get_user_assets(trading):
@@ -93,6 +95,7 @@ def handle_sell(trading, item):
     trading.save()
     return price
 
+@login_required
 def index(request):
     trading = MockTrading.objects.first()
     item_name = ""

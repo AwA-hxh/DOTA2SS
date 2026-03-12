@@ -1,0 +1,71 @@
+<div class="page-title">Mock Trading</div>
+
+<div class="main-container">
+    <div class="panel">
+        <div class="panel-title">Account Information</div>
+
+        <div class="section-title">Username</div>
+        <div class="balance-box">
+            {{ request.user.username }}
+        </div>
+
+        <div class="section-title">Account Balance</div>
+        <div class="balance-box">{{ balance }}</div>
+
+        <div class="section-title">Account Assets</div>
+        <div class="assets-grid">
+            {% for asset in assets %}
+                <div class="asset-slot">
+                    {% if asset %}
+                        {{ asset.item_name }}
+                    {% else %}
+                        Empty
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-title">User Time-Balance Line Chart</div>
+
+        <div class="chart-placeholder">
+            Chart Placeholder
+            <br>
+            (This area will show the user's balance line chart later)
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-title">Trading Zone</div>
+
+        <form class="trade-form" method="post">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <label for="item_name">Cosmetic Name</label>
+                <input type="text" id="item_name" name="item_name" placeholder="Enter cosmetic name" value="{{ item_name }}">
+            </div>
+
+            <div class="form-row">
+                <label>Cosmetic Price</label>
+                <div class="price-box">
+                    {% if price %}
+                        {{ price }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="button-row">
+                <button class="trade-button" type="submit" name="action" value="search">SEARCH PRICE</button>
+            </div>
+
+            <div class="button-row">
+                <button class="trade-button" type="submit" name="action" value="buy">BUY</button>
+                <button class="trade-button" type="submit" name="action" value="sell">SELL</button>
+            </div>
+        </form>
+    </div>
+</div>

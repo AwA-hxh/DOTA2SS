@@ -45,7 +45,38 @@
 
     {% block extra_head %}{% endblock %}
 </head>
+
 <body>
+    <div class="site-header">
+        {% block header %}
+            from base: DOTA2SS this is header testing
+        {% endblock %}
+    </div>
+
+    <div class="top-tabs">
+        <a href="{% url 'messageboard:messageboard_home' %}"
+           class="tab {% if current_page == 'messageboard' %}active{% endif %}">
+            from base Message board testing1
+        </a>
+
+        <a href="{% url 'mocktrade:index' %}"
+           class="tab {% if current_page == 'mocktrade' %}active{% endif %}">
+            from base Mock Trading testing1
+        </a>
+
+        <a href="{% url 'login' %}" class="tab">
+            from base Login testing1
+        </a>
+
+        <a href="{% url 'logout' %}" class="tab">
+            from base Logout testing1
+        </a>
+    </div>
+
+    <div class="top-extra">
+        {% block top_extra %}what is this{% endblock %}
+    </div>
+
     <div class="page-shell">
         <div class="top-tabs">
             <a href="{% url 'messageboard:messageboard_home' %}"
@@ -56,6 +87,38 @@
             <a href="{% url 'mocktrade:index' %}"
                class="tab {% if current_page == 'mocktrade' %}active{% endif %}">
                 Mock Trading
+            </a>
+
+            <a href="{% url 'login' %}"
+               class="tab">
+                Login
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="tab">
+                Logout
+            </a>
+        </div>
+
+        <div class="top-tabs">
+            <a href="{% url 'messageboard:messageboard_home' %}"
+               class="tab {% if current_page == 'messageboard' %}active{% endif %}">
+                Message board
+            </a>
+
+            <a href="{% url 'mocktrade:index' %}"
+               class="tab {% if current_page == 'mocktrade' %}active{% endif %}">
+                Mock Trading
+            </a>
+
+            <a href="{% url 'login' %}"
+               class="tab">
+                Login
+            </a>
+
+            <a href="{% url 'logout' %}"
+               class="tab">
+                Logout
             </a>
         </div>
 
