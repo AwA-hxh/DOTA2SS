@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import MockTrading, Cosmetic, MarketRecord
 
-
 def get_user_assets(trading):
     return [
         trading.asset1,
@@ -93,7 +92,6 @@ def handle_sell(trading, item):
     trading.balance += price
     trading.save()
     return price
-
 
 def index(request):
     trading = MockTrading.objects.first()
