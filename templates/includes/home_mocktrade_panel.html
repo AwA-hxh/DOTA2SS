@@ -6,7 +6,7 @@
 
         <div class="section-title">Username</div>
         <div class="balance-box">
-            {{ request.user.username }}
+            {{ username }}
         </div>
 
         <div class="section-title">Account Balance</div>
@@ -39,7 +39,7 @@
     <div class="panel">
         <div class="panel-title">Trading Zone</div>
 
-        <form class="trade-form" method="post" action="{% url 'home_test' %}?panel=mocktrade">
+        <form class="trade-form" method="post" action="{% url 'home' %}?panel=mocktrade">
             {% csrf_token %}
 
             <div class="form-row">
@@ -63,9 +63,20 @@
             </div>
 
             <div class="button-row">
-                <button class="trade-button" type="submit" name="action" value="buy">BUY</button>
-                <button class="trade-button" type="submit" name="action" value="sell">SELL</button>
+                {% if user.is_authenticated %}
+                    <button class="trade-button" type="submit" name="action" value="buy">BUY</button>
+                    <button class="trade-button" type="submit" name="action" value="sell">SELL</button>
+                {% else %}
+                    <button class="trade-button" type="button" disabled>BUY</button>
+                    <button class="trade-button" type="button" disabled>SELL</button>
+                {% endif %}
             </div>
+
+            {% if not user.is_authenticated %}
+            <p style="color: gray; margin-top:10px;">
+                Please login to trade items.
+            </p>
+            {% endif %}
         </form>
     </div>
 </div>

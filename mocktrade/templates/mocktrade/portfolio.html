@@ -169,15 +169,17 @@
 
             <div class="section-title">Account Assets</div>
             <div class="assets-grid">
-                {% for asset in assets %}
-                    <div class="asset-slot">
-                        {% if asset %}
-                            {{ asset.item_name }}
-                        {% else %}
-                            Empty
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {% if user.is_authenticated %}
+                    {% for asset in assets %}
+                        <div class="asset-slot">
+                            {% if asset %}
+                                {{ asset.item_name }}
+                            {% else %}
+                                Empty
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
 

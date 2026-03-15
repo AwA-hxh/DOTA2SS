@@ -96,32 +96,49 @@ def handle_sell(trading, item):
     return price
 
 def build_mocktrade_context(request):
-    trading = MockTrading.objects.first()
     item_name = ""
     price = None
+    error_message = ""
+
+    trading = None
+    assets = []
+
+    if request.user.is_authenticated:
+        trading = MockTrading.objects.first()
+        username = request.user.username
+        if trading:
+            assets = get_user_assets(trading)
+    else:
+        username = "Not Logged In"
 
     if request.method == "POST":
-        item_name = request.POST.get("item_name", "").strip()
         action = request.POST.get("action")
+        item_name = request.POST.get("item_name", "").strip()
         item = get_item_by_name(item_name)
 
         if action == "search":
             price = handle_search(item)
 
-        elif action == "buy":
-            price = handle_buy(trading, item)
+        elif action in ["buy", "sell"]:
+            if not request.user.is_authenticated:
+                error_message = "Please login before trading."
+            elif not trading:
+                error_message = "Trading account not found."
+            else:
+                if action == "buy":
+                    price = handle_buy(trading, item)
+                elif action == "sell":
+                    price = handle_sell(trading, item)
 
-        elif action == "sell":
-            price = handle_sell(trading, item)
-
-    assets = get_user_assets(trading)
+                assets = get_user_assets(trading)
 
     return {
-        "username": request.user.username,
-        "balance": trading.balance,
+        "username": username,
+        "balance": trading.balance if trading else 0,
         "assets": assets,
         "price": price,
         "item_name": item_name,
+        "error_message": error_message,
         "current_page": "mocktrade",
     }
 

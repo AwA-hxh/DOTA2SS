@@ -5,12 +5,12 @@ from messageboard.forms import MessageForm
 from messageboard.models import Message
 
 
+# def home(request):
+#     # Route the root to the integrated visualisation page to avoid missing template errors.
+#     return redirect('/items/')
+
+
 def home(request):
-    # Route the root to the integrated visualisation page to avoid missing template errors.
-    return redirect('/items/')
-
-
-def home_test(request):
     panel = request.GET.get("panel", "messageboard")
 
     if request.method == "POST" and panel == "messageboard":
@@ -23,7 +23,7 @@ def home_test(request):
                 if request.user.is_staff or msg.author_id == request.user.id:
                     msg.delete()
 
-                return redirect("/test/?panel=messageboard")
+                return redirect("/home/?panel=messageboard")
 
             form = MessageForm(request.POST)
             if form.is_valid():
@@ -41,7 +41,7 @@ def home_test(request):
                     text=form.cleaned_data["text"]
                 )
 
-        return redirect("/test/?panel=messageboard")
+        return redirect("/home/?panel=messageboard")
 
     context = {
         "panel": panel,
@@ -52,4 +52,4 @@ def home_test(request):
     elif panel == "messageboard":
         context.update(build_messageboard_context(request))
 
-    return render(request, "hometesting.html", context)
+    return render(request, "home.html", context)
