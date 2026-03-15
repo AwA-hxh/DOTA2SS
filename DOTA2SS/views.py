@@ -6,9 +6,8 @@ from messageboard.models import Message
 
 
 def home(request):
-    return render(request, 'home.html', {
-        'current_page': 'home'
-    })
+    # Route the root to the integrated visualisation page to avoid missing template errors.
+    return redirect('/items/')
 
 
 def home_test(request):
