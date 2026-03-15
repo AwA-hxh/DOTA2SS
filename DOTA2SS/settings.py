@@ -8,7 +8,9 @@ DEBUG = os.environ.get("DEBUG", "False") == "True"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 CSRF_TRUSTED_ORIGINS = ["https://dota2ss.onrender.com"]
-ALLOWED_HOSTS = ["dota2ss.onrender.com"]
+ALLOWED_HOSTS = ["dota2ss.onrender.com",
+                "127.0.0.1",
+                "localhost",]
 DEBUG = False
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static')

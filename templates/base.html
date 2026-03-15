@@ -89,9 +89,10 @@
 
             <div class="header-right">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}?next={{ request.path }}" class="login">
-                            Logout
-                        </a>
+                        <form action="{% url 'logout' %}?next={{ request.path }}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="login">Logout</button>
+                        </form>
                     {% else %}
                         <a href="{% url 'login' %}" class="logout">Login</a>
                     {% endif %}
