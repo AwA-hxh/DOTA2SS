@@ -7,13 +7,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-only-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
-
+CSRF_TRUSTED_ORIGINS = ["https://dota2ss.onrender.com"]
+ALLOWED_HOSTS = ["dota2ss.onrender.com"]
 DEBUG = False
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-
-ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
