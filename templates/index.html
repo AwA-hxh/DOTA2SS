@@ -125,7 +125,7 @@ button {
 <script>
 let myChart = null;
 let currentItemId = null;
-let currentTimeRange = "7d";
+let currentTimeRange = "365d";
 let currentChartType = "time-price";
 let selectedItems = [];
 let currentHeroType = "All";
@@ -155,7 +155,7 @@ function openApiData() {
     if (!itemId) {
         return;
     }
-    window.open(`/api/items/${itemId}/history/?range=30d`, "_blank");
+    window.open(`/api/items/${itemId}/history/?range=365d`, "_blank");
 }
 
 function applyHeroFilters() {
