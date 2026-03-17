@@ -12,7 +12,7 @@
       <a href="#" class="reply-link" data-reply-to="{{ m.id }}">Reply</a>
 
     {% if m.author == user or user.is_staff %}
-        <form method="post" action="{% url 'home' %}?panel=messageboard" class="inline-form">
+        <form method="post" action="{% url 'home_test' %}?panel=messageboard" class="inline-form">
          {% csrf_token %}
          <input type="hidden" name="delete_message_id" value="{{ m.id }}">
          <button type="submit" onclick="return confirm('Delete this message?');">Delete</button>
@@ -23,7 +23,7 @@
 
   {% if user.is_authenticated %}
     <div class="inline-reply" id="reply-box-{{ m.id }}" style="display:none">
-        <form method="post" action="{% url 'home' %}?panel=messageboard" class="reply-form">
+        <form method="post" action="{% url 'home_test' %}?panel=messageboard" class="reply-form">
             {% csrf_token %}
             <textarea name="text" rows="2" maxlength="200" placeholder="Write a reply"></textarea>
             <div class="counter" data-mb-counter>0/200</div>

@@ -1,1 +1,0 @@
-web: gunicorn DOTA2SS.wsgi:application

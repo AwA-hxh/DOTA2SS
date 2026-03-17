@@ -3,14 +3,15 @@ from mocktrade.views import build_mocktrade_context
 from messageboard.views import build_messageboard_context
 from messageboard.forms import MessageForm
 from messageboard.models import Message
-
-
-# def home(request):
-#     # Route the root to the integrated visualisation page to avoid missing template errors.
-#     return redirect('/items/')
+from visualisation.views import build_visualisation_context
 
 
 def home(request):
+    # Main homepage: upper visualisation + lower messageboard/mocktrade area.
+    return redirect('/test/')
+
+
+def home_test(request):
     panel = request.GET.get("panel", "messageboard")
 
     if request.method == "POST" and panel == "messageboard":
@@ -23,7 +24,7 @@ def home(request):
                 if request.user.is_staff or msg.author_id == request.user.id:
                     msg.delete()
 
-                return redirect("/home/?panel=messageboard")
+                return redirect("/test/?panel=messageboard")
 
             form = MessageForm(request.POST)
             if form.is_valid():
@@ -41,15 +42,14 @@ def home(request):
                     text=form.cleaned_data["text"]
                 )
 
-        return redirect("/home/?panel=messageboard")
+        return redirect("/test/?panel=messageboard")
 
-    context = {
-        "panel": panel,
-    }
+    context = {"panel": panel}
+    context.update(build_visualisation_context())
 
     if panel == "mocktrade":
         context.update(build_mocktrade_context(request))
     elif panel == "messageboard":
         context.update(build_messageboard_context(request))
 
-    return render(request, "home.html", context)
+    return render(request, "hometesting.html", context)
